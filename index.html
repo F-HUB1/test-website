@@ -6,8 +6,10 @@
 
   <title> MEME_HUB WEB </title>
 
+Password: <input type="password" value="FakePSW" id="myInput"><br><br>
+<input type="checkbox" onclick="myFunction()">Show Password
 
-
+<script>
 function myFunction() {
   var x = document.getElementById("myInput");
   if (x.type === "password") {
@@ -16,7 +18,8 @@ function myFunction() {
     x.type = "password";
   }
 }
-  
+
+
   <div class="navbar">
   <a href="#home">Home</a>
   <div class="dropdown">
