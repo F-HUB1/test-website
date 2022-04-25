@@ -3,28 +3,48 @@
 <html>
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title> ป๋าเอฟ คับ </title>
-  
-  <div class="navbar">
-  <a href="#home">ยิงเข้าดับถือเลย</a>
-  <div class="👁️👄👁️">
-    <button class="dropbtn">More
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#"></a>
-      <a href="#"></a>
-      <a href="#"></a>
-    </div>
-  </div>
-</div>
+  <title> EH4404 WEB </title>
 
+<style>
+body {
+            overflow-x: hidden;
+            background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+        }
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+.button {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
 
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 </style>
 
-</head>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+
 <style>
 body {
   font-family: "Sofia", sans-serif;
@@ -34,7 +54,7 @@ body {
 
 body {
 
-  background-image: url('พื้นหลัง1.jpg');
+  background-image: url('bg.png');
 
   background-repeat: no-repeat;
 
@@ -44,17 +64,106 @@ body {
 
 }
 
-
 </style>
 
 </head>
 
 <body>
-<strong style="color:red;" style="font-size:150%;" >  ⠀⠀⠀⠀⠀ยิงให้สนุก👁️👄👁️  </strong>
+	<canvas class="snow" id="snow" width="1848" height="515"></canvas>
+<img src="error4.gif" alt="error" width="2" height="2">
+<img src="error.gif" alt="error" width="950" height="100">
 <p>⠀⠀⠀</p>
-
-
-
-
+<h1 style="text-align:center; background-color:blue; style="color:White;">EH4404</h1>
+<p>⠀⠀⠀</p>
+<button class="button" onclick=window.open('https://surveyheart.com/form/625bf40c858afe1fa8d4d61f')>สมัครเป็นสมาชิก EH4404</button>
+<p>⠀⠀⠀</p>
+<button class="button" onclick=window.open('main.html')>ดาวน์โหลดไฟล์ต่างๆ</button>
+<p>⠀⠀⠀</p>
+<button class="button" onclick=window.open('earth.html')>ช่องทางติดต่อ</button>
+<p>⠀⠀⠀</p>
+<p>⠀⠀⠀</p>
+<script>
+        (function () {
+    
+        var canvas, ctx;
+        var points = [];
+        var maxDist = 100;
+    
+        function init() {
+            //Add on load scripts
+            canvas = document.getElementById("snow");
+            ctx = canvas.getContext("2d");
+            resizeCanvas();
+            pointFun();
+            setInterval(pointFun, 20);
+            window.addEventListener('resize', resizeCanvas, false);
+        }
+        //Particle constructor
+        function point() {
+            this.x = Math.random() * (canvas.width + maxDist) - (maxDist / 2);
+            this.y = Math.random() * (canvas.height + maxDist) - (maxDist / 2);
+            this.z = (Math.random() * 0.5) + 0.5;
+            this.vx = ((Math.random() * 2) - 0.5) * this.z;
+            this.vy = ((Math.random() * 1.5) + 1.5) * this.z;
+            this.fill = "rgba(255,255,255," + ((0.4 * Math.random()) + 0.5) + ")";
+            this.dia = ((Math.random() * 2.5) + 1.5) * this.z;
+            points.push(this);
+        }
+        //Point generator
+        function generatePoints(amount) {
+            var temp;
+            for (var i = 0; i < amount; i++) {
+                temp = new point();
+            };
+            // console.log(points);
+        }
+        //Point drawer
+        function draw(obj) {
+            ctx.beginPath();
+            ctx.strokeStyle = "transparent";
+            ctx.fillStyle = obj.fill;
+            ctx.arc(obj.x, obj.y, obj.dia, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.fill();
+        }
+        //Updates point position values
+        function update(obj) {
+            obj.x += obj.vx;
+            obj.y += obj.vy;
+            if (obj.x > canvas.width + (maxDist / 2)) {
+                obj.x = -(maxDist / 2);
+            }
+            else if (obj.xpos < -(maxDist / 2)) {
+                obj.x = canvas.width + (maxDist / 2);
+            }
+            if (obj.y > canvas.height + (maxDist / 2)) {
+                obj.y = -(maxDist / 2);
+            }
+            else if (obj.y < -(maxDist / 2)) {
+                obj.y = canvas.height + (maxDist / 2);
+            }
+        }
+        //
+        function pointFun() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < points.length; i++) {
+                draw(points[i]);
+                update(points[i]);
+            };
+        }
+    
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            generatePoints(window.innerWidth / 3);
+            pointFun();
+        }
+    
+        //Execute when DOM has loaded
+        document.addEventListener('DOMContentLoaded', init, false);
+    })();
+    </script>
 
 </html>
